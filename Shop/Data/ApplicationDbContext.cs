@@ -10,7 +10,7 @@ namespace Shop.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ShopUser, IdentityRole, string>
     {
-    
+        public  DbSet<Product> Products { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {

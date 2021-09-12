@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Domain.Models;
+using Shop.HostedServices;
 
 namespace Shop
 {
@@ -45,6 +46,7 @@ namespace Shop
                 .AddEntityFrameworkStores<ApplicationDbContext>().
                 AddTokenProvider < DataProtectorTokenProvider <ShopUser> >(TokenOptions.DefaultProvider); ;
 
+            services.AddHostedService<CreateRolesHostedService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -73,9 +75,15 @@ namespace Shop
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    "Admin",
+                    "Admin",
+                    "Admin/{Controller=Home}/{Action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }
