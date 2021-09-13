@@ -22,7 +22,7 @@ namespace Shop.HostedServices
             _serviceProvider = serviceProvider;
           
         }
-        public Task StartAsync(CancellationToken cancellationToken)
+        public  async Task StartAsync(CancellationToken cancellationToken)
         {
              const string roleName = "Admin";
 
@@ -30,20 +30,20 @@ namespace Shop.HostedServices
              {
 
                  var manager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                 var role = new IdentityRole(roleName);
-                 var resultOfManager = manager.CreateAsync(role).Result;
+                 var result = manager.FindByNameAsync("Admin").Result;
+                 //var role = new IdentityRole(roleName);
+                 //var resultOfManager = manager.CreateAsync(role).Result;
 
                  var user = scope.ServiceProvider.GetRequiredService<UserManager<ShopUser>>();
-                 var resulOfUsers = user.FindByEmailAsync("v_z@gmail.com").Result;
+                 var resulOfUsers =  user.FindByEmailAsync("v_z@gmail.com").Result;
 
-                 if (resultOfManager.Succeeded)
+                
+                 if (result!=null)
                  {
-                     user.AddToRoleAsync(resulOfUsers, roleName);
-
+                      await user.AddToRoleAsync(resulOfUsers, roleName);
                  }
-            }
+            } 
 
-           return Task.CompletedTask;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

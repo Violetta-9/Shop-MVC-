@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Domain.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -15,6 +16,7 @@ namespace Shop.Areas.Admin.Controllers
         // GET: HomeController
         public ActionResult Index()
         {
+            
             return View();
         }
 
