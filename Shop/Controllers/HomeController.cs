@@ -5,8 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shop.Data;
-using Shop.Domain.Models;
+using Shop.DataAccess;
 using Shop.Models;
 
 namespace Shop.Controllers

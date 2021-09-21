@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Shop.Data.Migrations
+namespace Shop.DataAccess.Migrations
 {
     public partial class AddClassProduct : Migration
     {

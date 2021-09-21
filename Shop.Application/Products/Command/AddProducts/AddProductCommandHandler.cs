@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Shop.Data;
+using Shop.DataAccess;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Products.Command.AddProducts

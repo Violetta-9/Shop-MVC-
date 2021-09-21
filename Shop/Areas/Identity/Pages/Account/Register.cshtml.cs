@@ -90,31 +90,6 @@ namespace Shop.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl; 
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        {
-            returnUrl = returnUrl ?? Url.Content("~/");
-            
-            if (ModelState.IsValid)
-            {
-                var user = new ShopUser(Input.UserName,Input.FirstName,Input.LastName,Input.Addres,Input.Phone,Input.Email);
-                var result = await _userManager.CreateAsync(user, Input.Password);//пользователь добавляется в базу данных
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    
-                        await _signInManager.SignInAsync(user, isPersistent: false); //устанавливаем аутентификационные куки для добавленного пользователя
-                        return LocalRedirect(returnUrl);
-                    
-                }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
-            return Page();
-        }
+      
     }
 }

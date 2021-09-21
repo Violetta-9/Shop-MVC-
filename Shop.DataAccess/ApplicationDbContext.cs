@@ -4,9 +4,10 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore; 
 using Microsoft.EntityFrameworkCore;
+using Shop.Domain;
 using Shop.Domain.Models;
 
-namespace Shop.Data
+namespace Shop.DataAccess
 {
     public class ApplicationDbContext : IdentityDbContext<ShopUser, IdentityRole, string>
     {

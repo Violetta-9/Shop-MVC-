@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shop.Data;
-using Shop.Domain.Models;
 
 
 namespace Shop.Areas.Admin.Controllers
@@ -28,6 +26,7 @@ namespace Shop.Areas.Admin.Controllers
         // GET: ProductsController
         public ActionResult Index()
         {
+            
             return View();
         }
 
