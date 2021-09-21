@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Shop.Data;
+using Shop.Domain.Models;
+
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -12,6 +17,14 @@ namespace Shop.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
+        private readonly IMediator _mediator;
+     
+
+
+        public ProductsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         // GET: ProductsController
         public ActionResult Index()
         {
