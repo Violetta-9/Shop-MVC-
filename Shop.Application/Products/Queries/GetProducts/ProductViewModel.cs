@@ -5,7 +5,7 @@ using Shop.Domain.Models;
 
 namespace Shop.Application.Products.Queries.GetProducts
 {
-    class ProductViewModel
+    public class ProductViewModel
     {
         public Product[] Products;
     }

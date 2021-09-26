@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Shop.Application.Products.Queries.GetProducts;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -24,17 +24,12 @@ namespace Shop.Areas.Admin.Controllers
             _mediator = mediator;
         }
         // GET: ProductsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            
-            return View();
+            var products = await _mediator.Send(new GetProductQueries());
+            return View(products);
         }
 
-        // GET: ProductsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
         // GET: ProductsController/Create
         public ActionResult Create()

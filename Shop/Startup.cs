@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shop.Application.Products.Queries.GetProducts;
 using Shop.Areas.Identity.Pages.Account;
 using Shop.HostedServices;
 using Shop.DataAccess;
@@ -51,6 +53,8 @@ namespace Shop
             services.AddHostedService<CreateRolesHostedService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMediatR(typeof(GetProductQueries).GetTypeInfo().Assembly); ;
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,7 +63,7 @@ namespace Shop
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                    //app.UseDatabaseErrorPage();
             }
             else
             {

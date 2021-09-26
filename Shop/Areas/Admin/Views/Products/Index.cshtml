@@ -1,6 +1,25 @@
-﻿
+﻿@model Shop.Application.Products.Queries.GetProducts.ProductViewModel;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Управление продуктами";
 }
-
-
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Продукт</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <th scope="row">@item.Name</th>
+            <td>@item.Description</td>
+            <td>@item.Price.ToString("C")</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<a class="btn bg-primary" asp-area="Admin" asp-controller="Products" asp-action="Create">gfu</a>
