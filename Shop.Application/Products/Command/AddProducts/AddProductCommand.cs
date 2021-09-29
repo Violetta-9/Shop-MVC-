@@ -12,5 +12,13 @@ namespace Shop.Application.Products.Command.AddProducts
        public string Description { get; set; }
        public double Price { get; private set; }
        public string Image { get; private set; }
+
+       public AddProductCommand(string name, string description, double price, string image)
+       {
+           Name = name;
+           Description = description;
+           Price = price;
+           Image = image;
+       }
     }
 }

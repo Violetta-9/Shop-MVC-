@@ -30,7 +30,7 @@ namespace Shop.Controllers
         public IActionResult Privacy()
         {
              
-            var product=db.Products.FirstOrDefault(i => i.Id == 1);
+            var product=db.Products.FirstOrDefault(i => i.Id == 5);
 
             return View(product);
         }

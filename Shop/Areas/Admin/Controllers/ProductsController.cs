@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shop.Application.Products.Command.AddProducts;
 using Shop.Application.Products.Queries.GetProducts;
 
 namespace Shop.Areas.Admin.Controllers
@@ -16,12 +19,13 @@ namespace Shop.Areas.Admin.Controllers
     public class ProductsController : Controller
     {
         private readonly IMediator _mediator;
-     
+        private readonly IWebHostEnvironment _appEnvironment;
 
 
-        public ProductsController(IMediator mediator)
+        public ProductsController(IMediator mediator,IWebHostEnvironment app)
         {
             _mediator = mediator;
+            _appEnvironment = app;
         }
         // GET: ProductsController
         public async Task<IActionResult> Index()
@@ -40,16 +44,28 @@ namespace Shop.Areas.Admin.Controllers
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+
+        // IFormFile Представляет файл, отправленный с HttpRequest.
+        public async Task<ActionResult> Create(string title,string description,double price,IFormFile file)
         {
-            try
+            if (file is null)
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Products");
             }
-            catch
+
+            var path = Path.Combine(_appEnvironment.WebRootPath, "images","Products",file.Name);
+
+            using (var fileforFileStream = new FileStream(path, FileMode.Create))
             {
-                return View();
+                //Асинхронно считывает байты из текущего потока и записывает их в другой поток.
+                await file.CopyToAsync(fileforFileStream);
             }
+
+             await _mediator.Send(new AddProductCommand(title,description,price,file.Name));
+
+            return RedirectToAction("Index", "Products");
+
+
         }
 
         // GET: ProductsController/Edit/5

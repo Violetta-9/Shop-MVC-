@@ -2,7 +2,7 @@
     ViewData["Title"] = "Добавление продукта";
 }
 
-<form asp-area="Admin" asp-controller="Products" asp-action="Create" method="post" >
+<form asp-area="Admin" asp-controller="Products" asp-action="Create" method="post" enctype="multipart/form-data" >
     <div class="form-group">
         <label>Название продукта</label>
         <input type="text" name="title" class="form-control">
