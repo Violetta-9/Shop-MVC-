@@ -17,6 +17,7 @@ using Shop.Areas.Identity.Pages.Account;
 using Shop.HostedServices;
 using Shop.DataAccess;
 using Shop.Domain.Models;
+using Serilog;
 
 
 namespace Shop

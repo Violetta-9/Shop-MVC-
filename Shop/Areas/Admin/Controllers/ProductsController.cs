@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Application.Products.Command.AddProducts;
+using Shop.Application.Products.Command.DeleteProduct;
 using Shop.Application.Products.Queries.GetProducts;
 
 namespace Shop.Areas.Admin.Controllers
@@ -90,24 +91,19 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         // GET: ProductsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    return View();
+        //}
 
         // POST: ProductsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+       
+        public async  Task<ActionResult> Delete(int productId)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+               await _mediator.Send(new DeleteProductCommand(productId));
+               
+               return RedirectToAction("Index","Products");
+        
         }
     }
 }
