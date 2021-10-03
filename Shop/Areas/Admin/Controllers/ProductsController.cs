@@ -11,7 +11,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Application.Products.Command.AddProducts;
 using Shop.Application.Products.Command.DeleteProduct;
+using Shop.Application.Products.Command.EditProduct;
+using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
+using Shop.ViewModels;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -54,7 +57,7 @@ namespace Shop.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Products");
             }
 
-            var path = Path.Combine(_appEnvironment.WebRootPath, "images","Products",file.Name);
+            var path = Path.Combine(_appEnvironment.WebRootPath, "images","Products",file.FileName);
 
             using (var fileforFileStream = new FileStream(path, FileMode.Create))
             {
@@ -62,7 +65,7 @@ namespace Shop.Areas.Admin.Controllers
                 await file.CopyToAsync(fileforFileStream);
             }
 
-             await _mediator.Send(new AddProductCommand(title,description,price,file.Name));
+             await _mediator.Send(new AddProductCommand(title,description,price,file.FileName));
 
             return RedirectToAction("Index", "Products");
 
@@ -70,24 +73,23 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         // GET: ProductsController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public  async Task<ActionResult> Edit(int productId)
         {
-            return View();
+            var productById=await _mediator.Send(new GetProductByIdQueries(productId));
+            return View("Edit",new EditProductViewModel{Product = productById});
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        //[ValidateAntiForgeryToken]//Todo:посмотри что это 
+        public async Task<ActionResult> Edit(int productId,string title, string description, double price)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            
+           await _mediator.Send(new EditProductCommand(productId,title, description, price));
+
+           return RedirectToAction("Index", "Products");
+
         }
 
         // GET: ProductsController/Delete/5
@@ -98,12 +100,11 @@ namespace Shop.Areas.Admin.Controllers
 
         // POST: ProductsController/Delete/5
        
-        public async  Task<ActionResult> Delete(int productId)
+        public async Task Delete(int productId)
         {
                await _mediator.Send(new DeleteProductCommand(productId));
-               
-               return RedirectToAction("Index","Products");
-        
+             
+
         }
     }
 }

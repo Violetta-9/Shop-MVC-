@@ -27,7 +27,7 @@ namespace Shop.Application.Products.Command.DeleteProduct
               //Todo: исключение, которое говорит нам что данного продукта нет в бд
           }
 
-            _db.Products.Remove(result);
+           _db.Products.Remove(result);
 
            await _db.SaveChangesAsync(cancellationToken);
 

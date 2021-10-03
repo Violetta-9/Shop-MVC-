@@ -26,7 +26,7 @@ namespace Shop.Domain.Models
 
         }
 
-        private void  SetProductName(string name)
+        public void  SetProductName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -35,7 +35,7 @@ namespace Shop.Domain.Models
 
             Name = name;
         }
-        private void SetProductDiscription(string discription)
+        public  void SetProductDiscription(string discription)
         {
             if (string.IsNullOrWhiteSpace(discription))
             {
@@ -44,7 +44,7 @@ namespace Shop.Domain.Models
 
             Description = discription;
         }
-        private void SetProductPrice(double price)
+        public void SetProductPrice(double price)
         {
             if (price<=0)
             {
@@ -53,7 +53,7 @@ namespace Shop.Domain.Models
 
             Price = price;
         }
-        private void SetProductImage(string imagepath)
+        public  void SetProductImage(string imagepath)
         {
             if (string.IsNullOrWhiteSpace(imagepath))
             {
