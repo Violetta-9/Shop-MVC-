@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Shop.ViewModels.CreateProductViewModel;
+
+@{
     ViewData["Title"] = "Добавление продукта";
 }
 
@@ -10,6 +12,24 @@
     <div class="form-group">
         <lable>Описание продукта</lable>
         <textarea class="form-control"  name="description" placeholder="Описание продукта" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <lable>Категория</lable>
+        <select class="form-control" name="categoryId">
+            @foreach (var item in Model.Categories.Categories)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <lable>Поставщик</lable>
+        <select class="form-control" name="v endorId">
+            @foreach (var item in Model.Vendors.Vendors)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
     </div>
     <div class="form-group">
         <lable>Цена</lable>

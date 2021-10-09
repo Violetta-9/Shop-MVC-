@@ -9,6 +9,7 @@ namespace Shop.ViewModels
 {
     public class EditProductViewModel
     {
+        public CreateProductViewModel Data { get; set; }
         public Product Product { get; set; }
     }
 }

@@ -11,18 +11,24 @@ namespace Shop.Domain.Models
         public string Description { get; private set; }
         public double Price { get; private set; }
         public string Image { get; private set; }
+        public int VendorId { get; private set; }
+        public int CategoryId { get; private set; }
+        public virtual Vendor Vendors { get; private set; }
+        public virtual Category Categorys { get; private set; }
 
         public Product()
         {
 
         }
 
-        public Product(string name, string description, double price, string imagepath)
+        public Product(string name, string description, double price, string imagepath,int vendorId,int categoryId)
         {
             SetProductName(name);
             SetProductDiscription(description);
             SetProductPrice(price);
             SetProductImage(imagepath);
+            SetProductCategory(categoryId);
+            SetProductVendor(vendorId);
 
         }
 
@@ -61,6 +67,24 @@ namespace Shop.Domain.Models
             }
 
             Image = imagepath;
+        }
+        public void SetProductCategory(int category)
+        {
+            if (category <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(category), category, "categoryId cannot be less than or equal to 0");
+            }
+
+            CategoryId = category;
+        }
+        public void SetProductVendor(int vendor)
+        {
+            if (vendor <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(vendor), vendor, "VendorId cannot be less than or equal to 0");
+            }
+
+            VendorId = vendor;
         }
     }
 }

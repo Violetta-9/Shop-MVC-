@@ -1,0 +1,28 @@
+﻿@model Shop.Application.Categories.Queries.CategoriesViewModel;
+@{
+    ViewData["Title"] = "Управление категориями";
+}
+
+<table class="table  table-bordered">
+    <thead>
+    <tr>
+        
+        <th scope="col">Название</th>
+        <th scope="col">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+
+            <th>@category.Name</th>
+            <td>
+                <a class="btn bg-primary">Удалить</a>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>
+

@@ -29,6 +29,8 @@ namespace Shop.Application.Products.Command.EditProduct
             product.SetProductName(request.Name);
             product.SetProductDiscription(request.Description);
             product.SetProductPrice(request.Price);
+            product.SetProductCategory(request.CategoryId);
+            product.SetProductVendor(request.VendorId);
         
             await _db.SaveChangesAsync(cancellationToken);
 

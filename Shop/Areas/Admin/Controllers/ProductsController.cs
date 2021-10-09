@@ -9,11 +9,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shop.Application.Categories.Queries;
 using Shop.Application.Products.Command.AddProducts;
 using Shop.Application.Products.Command.DeleteProduct;
 using Shop.Application.Products.Command.EditProduct;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
+using Shop.Application.Vendors.Queries;
 using Shop.ViewModels;
 
 namespace Shop.Areas.Admin.Controllers
@@ -40,9 +42,15 @@ namespace Shop.Areas.Admin.Controllers
 
 
         // GET: ProductsController/Create
-        public ActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var categories = await _mediator.Send( new GetCategoriesQueries());
+            var vendors = await  _mediator.Send(new GetVendorQueries());
+            return View("Create",new CreateProductViewModel()
+            {
+                Categories = categories, 
+                Vendors=vendors
+            });
         }
 
         // POST: ProductsController/Create
@@ -50,7 +58,7 @@ namespace Shop.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
 
         // IFormFile Представляет файл, отправленный с HttpRequest.
-        public async Task<ActionResult> Create(string title,string description,double price,IFormFile file)
+        public async Task<ActionResult> Create(string title,string description,double price,IFormFile file,int categoryId,int vendorId)
         {
             if (file is null)
             {
@@ -65,7 +73,7 @@ namespace Shop.Areas.Admin.Controllers
                 await file.CopyToAsync(fileforFileStream);
             }
 
-             await _mediator.Send(new AddProductCommand(title,description,price,file.FileName));
+             await _mediator.Send(new AddProductCommand(title,description,price,file.FileName, vendorId,categoryId));
 
             return RedirectToAction("Index", "Products");
 
@@ -77,16 +85,23 @@ namespace Shop.Areas.Admin.Controllers
         public  async Task<ActionResult> Edit(int productId)
         {
             var productById=await _mediator.Send(new GetProductByIdQueries(productId));
-            return View("Edit",new EditProductViewModel{Product = productById});
+            var categories = await _mediator.Send(new GetCategoriesQueries());
+            var vendors = await _mediator.Send(new GetVendorQueries());
+            var data = new CreateProductViewModel() {Categories = categories, Vendors = vendors};
+            return View("Edit",new EditProductViewModel
+            {
+                Product = productById,
+                Data= data
+            });
         }
 
         // POST: ProductsController/Edit/5
         [HttpPost]
         //[ValidateAntiForgeryToken]//Todo:посмотри что это 
-        public async Task<ActionResult> Edit(int productId,string title, string description, double price)
+        public async Task<ActionResult> Edit(int productId,string title, string description, double price,int vendorId,int categoryId)
         {
             
-           await _mediator.Send(new EditProductCommand(productId,title, description, price));
+           await _mediator.Send(new EditProductCommand(productId,title, description, price,vendorId,categoryId));
 
            return RedirectToAction("Index", "Products");
 

@@ -23,7 +23,7 @@ namespace Shop.Application.Products.Queries.GetProducts
         public Task<ProductViewModel> Handle(GetProductQueries request, CancellationToken cancellationToken)
         {
 
-            return Task.FromResult(new ProductViewModel()
+            return Task.FromResult(new ProductViewModel()//Создает задачу <TResult>, которая успешно завершена с указанным результатом.
             {
                 Products = _db.Products.ToArray()
             });
