@@ -6,12 +6,13 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Application.Categories.Command;
 using Shop.Application.Categories.Queries;
 
 namespace Shop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]//класс или метод требует указанной авторизации
     public class CategoryController : Controller
     {
         private readonly IMediator _mediator;
@@ -20,38 +21,27 @@ namespace Shop.Areas.Admin.Controllers
         {
             _mediator = mediator;
         }
-        // GET: CategoryController
+     
         public async Task<ActionResult> Index()
         {
             var categories = await _mediator.Send(new GetCategoriesQueries());
             return View(categories);
         }
 
-        // GET: CategoryController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: CategoryController/Create
+       
+   
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CategoryController/Create
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public  async Task<ActionResult> Create(string categoryName)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _mediator.Send(new AddCategoryCommand(categoryName));
+            return RedirectToAction("Index", "Category");
         }
 
         // GET: CategoryController/Edit/5
