@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "Добавление поставщика";
+}
+
+<form asp-area="Admin" asp-action="Create" asp-controller="Vendor" method="post">
+
+    <div class="form-group">
+        <lable>Название поставщика</lable>
+        <input name="nameVendor" class="form-control" type="text" required>
+    </div>
+    <div class="form-group">
+        <lable>Краткое описание</lable>
+        <input name="descriptionVendor" class="form-control" type="text"required>
+    </div>
+    <button type="submit" class=" btn bg-primary">Сохранить</button>
+</form>
+
