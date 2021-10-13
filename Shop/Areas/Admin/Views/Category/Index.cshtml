@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Управление категориями";
 }
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <table class="table  table-bordered">
     <thead>
@@ -18,7 +19,7 @@
 
             <th>@category.Name</th>
             <td>
-                <a class="btn bg-primary">Удалить</a>
+                <a class="btn bg-primary" onclick="confirmDeleteCategoy(@category.Id)">Удалить</a>
             </td>
         </tr>
     }

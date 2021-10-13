@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Vendors.Command;
+using Shop.Application.Vendors.Command.DeleteVendor;
 using Shop.Application.Vendors.Queries;
 
 namespace Shop.Areas.Admin.Controllers
@@ -63,25 +64,12 @@ namespace Shop.Areas.Admin.Controllers
             }
         }
 
-        // GET: VendorController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
-        // POST: VendorController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+       
+        public async Task Delete(int vendorId)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _mediator.Send(new DeleteVendorCommand(vendorId));
+            
         }
     }
 }

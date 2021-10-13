@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Categories.Command;
+using Shop.Application.Categories.Command.DeleteCategory;
 using Shop.Application.Categories.Queries;
 
 namespace Shop.Areas.Admin.Controllers
@@ -65,25 +66,11 @@ namespace Shop.Areas.Admin.Controllers
             }
         }
 
-        // GET: CategoryController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CategoryController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task Delete(int categoryId)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _mediator.Send(new DeleteCategoryCommand(categoryId));
+            
         }
     }
 }
