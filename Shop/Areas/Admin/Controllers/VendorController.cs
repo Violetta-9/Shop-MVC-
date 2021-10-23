@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Vendors.Command;
 using Shop.Application.Vendors.Command.DeleteVendor;
+using Shop.Application.Vendors.Command.EditVendor;
 using Shop.Application.Vendors.Queries;
+using Shop.Application.Vendors.Queries.GetCategoryById;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -44,24 +46,19 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         // GET: VendorController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult>  Edit(int vendorId)
         {
-            return View();
+            var vendor = await _mediator.Send(new GetVendorByIdQueries(vendorId));
+            return View(vendor);
         }
 
         // POST: VendorController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int vendorId,string vendorName,string vendorDescription)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _mediator.Send(new EditVendorCommand(vendorId, vendorName, vendorDescription));
+            return RedirectToAction("Index", "Vendor");
         }
 
 

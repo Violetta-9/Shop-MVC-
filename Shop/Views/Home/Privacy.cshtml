@@ -1,6 +1,11 @@
-﻿@model Shop.Domain.Models.Product
+﻿@model Shop.Application.Products.Queries.GetProducts.ProductViewModel;
 <p class="h1">Привет </p>
-<p>Продукт @Model.Name</p>
-<p>@Model.Description</p>
-<img src="/images/Products/@Model.Image" alt="Бывает"/>
+@foreach (var item in Model.Products)
+{
+    <p>Продукт @item.Name</p>
+    <p>@item.Description</p>
+    <p>@item.Categories.Name</p>
+    <img src="/images/Products/@item.Image" alt="Бывает"/>
+}
+
 

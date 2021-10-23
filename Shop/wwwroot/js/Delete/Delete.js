@@ -10,7 +10,7 @@
             if (willDelete) {
                 $.ajax({
                     url: "../Admin/Products/Delete",
-                    type: "POST",
+                    type: "GET",
                     data: {
                         productId: id
                     },
@@ -55,8 +55,8 @@
         });
     }
 
-    function confirmDeleteCategoy(id) {
-        swal({
+    function confirmDeleteCategory(id) {
+       swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this imaginary file!",
             icon: "warning",
@@ -66,7 +66,7 @@
             if (willDelete) {
                 $.ajax({
                     url: "../Admin/Category/Delete",
-                    type: "POST",
+                    type: "GET",
                     data: {
                         categoryId: id
                     },

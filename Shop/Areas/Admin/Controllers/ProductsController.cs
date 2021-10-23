@@ -114,7 +114,7 @@ namespace Shop.Areas.Admin.Controllers
         //}
 
         // POST: ProductsController/Delete/5
-       
+       [HttpGet]
         public async Task Delete(int productId)
         {
                await _mediator.Send(new DeleteProductCommand(productId));

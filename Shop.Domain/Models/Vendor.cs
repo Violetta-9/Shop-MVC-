@@ -20,7 +20,7 @@ namespace Shop.Domain.Models
 
         }
 
-        private void SetName(string name)
+        public void SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -29,7 +29,7 @@ namespace Shop.Domain.Models
 
             Name = name;
         }
-        private void SetDescription(string description)
+        public void SetDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
             {

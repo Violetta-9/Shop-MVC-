@@ -15,7 +15,7 @@ namespace Shop.Domain.Models
              SetName(name);
 
          }
-         private void SetName(string name)
+         public void SetName(string name)
          {
              if (string.IsNullOrWhiteSpace(name))
              {

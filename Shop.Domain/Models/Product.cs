@@ -14,7 +14,7 @@ namespace Shop.Domain.Models
         public int VendorId { get; private set; }
         public int CategoryId { get; private set; }
         public virtual Vendor Vendors { get; private set; }
-        public virtual Category Categorys { get; private set; }
+        public virtual Category Categories { get; private set; }
 
         public Product()
         {

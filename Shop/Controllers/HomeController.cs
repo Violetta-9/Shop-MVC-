@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Shop.Application.Products.Queries.GetProducts;
 using Shop.DataAccess;
 using Shop.Models;
 
@@ -14,11 +16,12 @@ namespace Shop.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext db;
-
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext _db)
+        private readonly IMediator _mediator;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext _db,IMediator mediator)
         {
             _logger = logger;
             db = _db;
+            _mediator = mediator;
 
         }
 
@@ -27,10 +30,10 @@ namespace Shop.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
              
-            var product=db.Products.FirstOrDefault(i => i.Id == 5);
+            var product =  await _mediator.Send(new GetProductQueries());
 
             return View(product);
         }

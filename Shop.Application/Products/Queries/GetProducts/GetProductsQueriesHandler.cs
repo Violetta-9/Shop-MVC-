@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Shop.DataAccess;
 
@@ -25,8 +26,8 @@ namespace Shop.Application.Products.Queries.GetProducts
 
             return Task.FromResult(new ProductViewModel()//Создает задачу <TResult>, которая успешно завершена с указанным результатом.
             {
-                Products = _db.Products.ToArray()
+                Products = _db.Products.Include(x=>x.Categories).Include(x=>x.Vendors).ToArray()
             });
         }
-    }
+  }
 }

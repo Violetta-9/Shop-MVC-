@@ -6,9 +6,12 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Shop.Application.Categories.Command;
 using Shop.Application.Categories.Command.DeleteCategory;
+using Shop.Application.Categories.Command.EditCategory;
 using Shop.Application.Categories.Queries;
+using Shop.Application.Categories.Queries.GetCategoryById;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -45,28 +48,23 @@ namespace Shop.Areas.Admin.Controllers
             return RedirectToAction("Index", "Category");
         }
 
-        // GET: CategoryController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public async Task<ActionResult> Edit(int categoryid)
         {
-            return View();
+            var category= await _mediator.Send(new GetCategoryByIdCommand(categoryid));
+            return View(category);
         }
 
-        // POST: CategoryController/Edit/5
+        
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [ValidateAntiForgeryToken]// предназначен для противодействия подделке межсайтовых запросов, производя верификацию токенов при обращении к методу действия.
+        public  async Task<ActionResult> Edit(int categoryId, string categoryName)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _mediator.Send(new EditCategoryCommand(categoryName, categoryId));
+            return RedirectToAction("Index", "Category");
         }
 
-        [HttpPost]
+
         public async Task Delete(int categoryId)
         {
             await _mediator.Send(new DeleteCategoryCommand(categoryId));

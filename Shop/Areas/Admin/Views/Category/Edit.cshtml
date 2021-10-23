@@ -1,0 +1,18 @@
+﻿@model Shop.Domain.Models.Category;
+@{
+    ViewData["Title"] = "Редактирование ";
+}
+
+<form asp-area="Admin" asp-controller="Category" asp-action="Edit" method="post">
+    <div class="form-group">
+        <lable>Название товора</lable>
+        <input type="text" class="form-control" name="categoryName" value="@Model.Name">
+
+    </div>
+  
+        
+        <input type="hidden" class="form-control" name="categoryId" value="@Model.Id">
+
+   
+    <button class="btn bg-primary" name="submit">Добавить</button>
+</form>

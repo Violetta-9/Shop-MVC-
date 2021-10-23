@@ -19,7 +19,7 @@
         <select class="form-control" name="categoryId">
             @foreach (var item in Model.Data.Categories.Categories)
             {
-                <option selected="@(item.Name==Model.Product.Categorys.Name)" value="@item.Id">@item.Name</option>
+                <option selected="@(item.Name==Model.Product.Categories.Name)" value="@item.Id">@item.Name</option>
             }
         </select>
     </div>
