@@ -9,7 +9,7 @@ using Shop.Domain.Models;
 
 namespace Shop.ViewModels
 {
-    public class CreateProductViewModel
+    public class CreateProductViewModel//находиться в контроллере Product Админ метод Create
     {
         public CategoriesViewModel Categories { get; set; }
         public VendorsViewModel Vendors { get; set; }

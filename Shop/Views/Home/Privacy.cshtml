@@ -1,11 +1,21 @@
 ﻿@model Shop.Application.Products.Queries.GetProducts.ProductViewModel;
-<p class="h1">Привет </p>
+<div class="card-group">
 @foreach (var item in Model.Products)
+    
 {
-    <p>Продукт @item.Name</p>
-    <p>@item.Description</p>
-    <p>@item.Categories.Name</p>
-    <img src="/images/Products/@item.Image" alt="Бывает"/>
+    <div class="col-4">
+        <div class="card" style="width: 18rem;">
+            <img src="/images/Products/@item.Image" class="card-img-top" alt="не удалось загрузить фото">
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+                <p class="card-text">@item.Description</p>
+                <a class="btn btn-primary">Подробнее</a>
+            </div>
+        </div>
+        <br />
+    </div>
+    
+    
 }
 
-
+</div>

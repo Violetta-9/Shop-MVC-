@@ -1,0 +1,42 @@
+﻿.bullet {
+    margin-left: 0;
+    list-style: none;
+    counter-reset: li;
+    text-align: center;
+   
+}
+
+    .bullet li {
+        position: relative;
+        margin-bottom: 1.5em;
+        border: 3px solid rgba(89, 240, 122,.4);
+        padding: 0.8em;
+        border-radius: 4px;
+        background: #FEFEFE;
+        color: #231F20;
+        font-family: "Trebuchet MS", "Lucida Sans";
+    }
+
+        .bullet li:before {
+            position: absolute;
+            top: -0.7em;
+            padding-left: 0.1em;
+            padding-right: 0.7em;
+            font-size: 19px;
+            font-weight: bold;
+            color: #DCC24B;
+            background: #FEFEFE;
+            border-radius: 50%;
+            counter-increment: li;
+            content: counter(li);
+            align-content: start;
+        }
+p {
+    letter-spacing: 1.5px;
+    margin-top: 17px;
+   
+}
+h2 {
+    font-weight: lighter;
+    margin-left: 45px;
+}

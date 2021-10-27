@@ -7,7 +7,7 @@ using Shop.Domain.Models;
 
 namespace Shop.ViewModels
 {
-    public class EditProductViewModel
+    public class EditProductViewModel//находиться в контроллере Product Админа метод Edit
     {
         public CreateProductViewModel Data { get; set; }
         public Product Product { get; set; }

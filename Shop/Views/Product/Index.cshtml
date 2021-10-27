@@ -1,0 +1,60 @@
+﻿@model Shop.ViewModels.CommonViewModel;
+@{
+    ViewData["Title"] = "Товары";
+}
+<div class="row">
+    <div class="col-md-3">
+        <form asp-controller="Product" asp-action="Find">
+        <div class="form-group">
+            <lable>Категория:</lable>
+            <select class="form-control" name="categoryId">
+
+                @foreach (var category in Model.Category.Categories)
+                {
+                    <option class="dropdown-item" value=@category.Id>@category.Name</option>
+                }
+                <option class="dropdown-item" selected>Любая</option>
+            </select>
+            <br>
+            <lable>Производитель:</lable>
+            <select class="form-control" name="vendorId">
+
+                @foreach (var vendor in Model.Vendor.Vendors)
+                {
+                    <option class="dropdown-item" value=@vendor.Id>@vendor.Name</option>
+                }
+                <option class="dropdown-item" selected>Любая</option>
+            </select>
+            <br>
+            <label>Цена:</label>
+            <select class="form-control" name="sort">
+                <option class="dropdown-item" value="1">Сначала дорогие</option>
+                <option class="dropdown-item" value="-1">Сначала дешёвые</option>
+                <option class="dropdown-item" selected value="0">Не сортировать</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Применить</button>
+        </form>
+    </div>
+    <div class="row col-md-9">
+       
+            @foreach (var item in Model.Product.Products)
+
+            {
+                
+                    <div class="card col-md-4 m-2 " style="width: 18rem;">
+                        <img src="/images/Products/@item.Image" class="card-img-top" alt="не удалось загрузить фото">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <h4 class="card-text">@item.Price</h4>
+                            <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-productId="@item.Id">Подробнее</a>
+                        </div>
+                    </div>
+                <br />
+
+
+            }
+
+        
+    </div>
+</div>

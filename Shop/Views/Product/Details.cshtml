@@ -1,0 +1,40 @@
+﻿@model Shop.Domain.Models.Product;
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="/images/Products/@Model.Image" alt="Не удалось загрусить фото" class="img-fluid img-thumbnail"/>
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th scope="row">Название</th>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <th scope="row">Описание</th>
+                    <td>@Model.Description</td>
+                </tr>
+                <tr>
+                    <th scope="row">Категория</th>
+                    <td>@Model.Categories.Name</td>
+
+                </tr>
+            <tr>
+                <th scope="row">Поставщик</th>
+                <td>@Model.Vendors.Name</td>
+
+            </tr>
+            <tr>
+                <th scope="row">Цена</th>
+                <td>@Model.Price.ToString("C")</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
