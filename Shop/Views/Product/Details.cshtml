@@ -1,40 +1,58 @@
-﻿@model Shop.Domain.Models.Product;
+﻿@model Shop.ViewModels.ProductAndReviewViewModel;
 @{
     ViewData["Title"] = "Details";
 }
-
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<!-- THIS LINE -->
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <div class="row">
     <div class="col-md-4">
-        <img src="/images/Products/@Model.Image" alt="Не удалось загрусить фото" class="img-fluid img-thumbnail"/>
+        <img src="/images/Products/@Model.Product.Image" alt="Не удалось загрусить фото" class="img-fluid img-thumbnail" />
     </div>
     <div class="col-md-8">
         <table class="table">
             <tbody>
                 <tr>
                     <th scope="row">Название</th>
-                    <td>@Model.Name</td>
+                    <td>@Model.Product.Name</td>
                 </tr>
                 <tr>
                     <th scope="row">Описание</th>
-                    <td>@Model.Description</td>
+                    <td>@Model.Product.Description</td>
                 </tr>
                 <tr>
                     <th scope="row">Категория</th>
-                    <td>@Model.Categories.Name</td>
+                    <td>@Model.Product.Categories.Name</td>
 
                 </tr>
-            <tr>
-                <th scope="row">Поставщик</th>
-                <td>@Model.Vendors.Name</td>
+                <tr>
+                    <th scope="row">Поставщик</th>
+                    <td>@Model.Product.Vendors.Name</td>
 
-            </tr>
-            <tr>
-                <th scope="row">Цена</th>
-                <td>@Model.Price.ToString("C")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Цена</th>
+                    <td>@Model.Product.Price.ToString("C")</td>
 
-            </tr>
+                </tr>
             </tbody>
         </table>
-    </div>
-</div>
 
+
+
+        <a class="bg-success btn" asp-controller="Product" asp-action="Index">Назад</a>
+        <a class="btn bg-success">Поместить в корзину</a>
+    </div>
+
+</div>
+<div  id="accordion">
+    <button class="btn bg-success" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+    Отзывы
+    </button>
+ 
+    <div id="collapseOne" class=" collapse ">
+ 
+    </div>
+   
+</div>

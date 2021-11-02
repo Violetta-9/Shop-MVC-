@@ -13,6 +13,7 @@ namespace Shop.Domain.Models
         public string LastName { get;private set; }
         public string Addrese { get; private set; }
         public DateTime RegisterDate { get; }
+      
 
         private ShopUser()
         {

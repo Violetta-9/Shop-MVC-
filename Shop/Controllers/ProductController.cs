@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Categories.Queries;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
+using Shop.Application.Reviews.Queries.GetReviewByProductId;
 using Shop.Application.Vendors.Queries;
 using Shop.DataAccess;
 using Shop.ViewModels;
@@ -43,8 +44,14 @@ namespace Shop.Controllers
         public async Task<ActionResult> Details(int productId)
         {
             var product = await _mediator.Send(new GetProductByIdQueries(productId));
+            var review = await _mediator.Send(new GetReviewsByProductIdQueries(productId));
+            var productAndReview = new ProductAndReviewViewModel()
+            {
+                Review = review,
+                Product = product,
+            };
             
-            return View(product);
+            return View(productAndReview);
         }
 
         
@@ -84,46 +91,6 @@ namespace Shop.Controllers
 
         }
 
-        // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: ProductController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
