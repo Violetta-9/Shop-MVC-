@@ -3,15 +3,23 @@
 @inject SignInManager<ShopUser> SignInManager
 @inject UserManager<ShopUser> UserManager
 
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
+    <li class="nav-item mt-2 mr-1">
+        <a asp-controller="Cart" asp-action="Index" class="fa fa-shopping-basket text-dark" aria-hidden="true">
+            <span  id="amount" class="badge badge-pill badge-success">0</span>
+        </a>
+    </li>
+    <li class="nav-item mt-2 mr-3 ml-3">
+        
+        <a class="fas fa-user-cog text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"></a>
+      
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+            <button  type="submit" class="nav-link btn btn-link text-dark">Выход</button>
         </form>
     </li>
 }

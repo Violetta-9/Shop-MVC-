@@ -2,10 +2,17 @@
 @{
     ViewData["Title"] = "Details";
 }
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<!-- THIS LINE -->
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+@*<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>*@
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
 <div class="row">
     <div class="col-md-4">
         <img src="/images/Products/@Model.Product.Image" alt="Не удалось загрусить фото" class="img-fluid img-thumbnail" />
@@ -42,17 +49,21 @@
 
 
         <a class="bg-success btn" asp-controller="Product" asp-action="Index">Назад</a>
-        <a class="btn bg-success">Поместить в корзину</a>
+        <a class="btn bg-primary" onclick="addProduct(@Model.Product.Id)">Поместить в корзину</a>
+
+
     </div>
 
 </div>
-<div  id="accordion">
+<div id="accordion">
     <button class="btn bg-success" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-    Отзывы
+        Отзывы
     </button>
- 
+
     <div id="collapseOne" class=" collapse ">
- 
+        fdedvdcx
+
+
     </div>
-   
+
 </div>

@@ -5,13 +5,16 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Categories.Queries;
+using Shop.Application.ProductCart.Command;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
 using Shop.Application.Reviews.Queries.GetReviewByProductId;
 using Shop.Application.Vendors.Queries;
 using Shop.DataAccess;
+using Shop.Domain.Models;
 using Shop.ViewModels;
 
 namespace Shop.Controllers
@@ -19,11 +22,12 @@ namespace Shop.Controllers
     public class ProductController : Controller
     {
         private readonly IMediator _mediator;
-        private readonly ApplicationDbContext _db;
-        public ProductController(IMediator mediator,ApplicationDbContext db)
+        private readonly UserManager<ShopUser> _manager;
+        public ProductController(IMediator mediator, UserManager<ShopUser> manager)
         {
             _mediator = mediator;
-            _db = db;
+            _manager = manager;
+
         }
         public  async Task<ActionResult> Index()
         {
@@ -89,6 +93,12 @@ namespace Shop.Controllers
             };
             return View("Index", common);
 
+        }
+        [HttpPost]
+        public async Task AddProductInCart(int id)
+        {
+            var user = await _manager.GetUserAsync(User);
+            await _mediator.Send(new AddProductInCartCommand(id, user.Id, 1));
         }
 
 
