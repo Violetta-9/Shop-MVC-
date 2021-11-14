@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 
-namespace Shop.Application.ProductCart.Queries
+namespace Shop.Application.ProductCart.Queries.GetUserCart
 {
-     public class GetProductFromTheCartQueries:IRequest<ProductInCardViewModel>
+     public class GetProductFromTheCartQueries:IRequest<NewClassForProductInCartViewModel>
     {
         public string UserId { get; set; }
 

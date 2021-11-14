@@ -1,7 +1,9 @@
-﻿@model Shop.Application.ProductCart.Queries.ProductInCardViewModel;
+﻿@model Shop.Application.ProductCart.Queries.GetUserCart.NewClassForProductInCartViewModel;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Корзина";
 }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <div class="container">
     <main role="main" class="pb-3">
         <h2> Действия с товарами</h2>
@@ -25,23 +27,53 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-9">
-                    <h4>Корзина с товарами</h4>
-                    <div>
-                        @foreach (var item in Model.ProductFromCart)
-                        {
-                            <div class="card col-md-4 m-2 " style="width: 18rem;">
-                                <img src="/images/Products/@item.Image" class="card-img-top" alt="не удалось загрузить фото">
-                                <div class="card-body">
-                                    <h5 class="card-title">@item.Name</h5>
-                                    <h4 class="card-text">@item.Price</h4>
-                                </div>
-                            </div>
-                            <br />
 
-                        }
-
+                <div class=" row col-md-9">
+                    <h4 class="col-md-9">Корзина с товарами</h4>
+                    <h5 class="col-md-9">
+                        <span>Стоимость товаров:</span>
+                        <span class="totalPrice"> @Model.FullPriece</span>
+                        <span>&#x20bd</span>
+                    </h5>
+                    <div class="col-md-9">
+                        <a class="  btn bg-info">Оформить</a>
                     </div>
+                    
+
+                    <br />
+
+                    @foreach (var item in Model.Products)
+                    {
+
+                        <div class="card Products  col-md-4 m-2 " style="width: 18rem;">
+                            <img src="/images/Products/@item.Image" class="card-img-top" alt="не удалось загрузить фото">
+                            <div class="card-body">
+                                <p hidden class="idProduct">@item.ProductId</p>
+                                <h5 class="card-title">@item.Name</h5>
+                                <h4 class="card-text ">
+                                    <span class="price">@item.Priece</span>
+                                    <span>&#x20bd</span>
+
+                                </h4>
+
+                                <a class="far fa-heart mt-1 float-left heard"></a>
+                                <a class="btn bg-danger mt-1 float-right " onclick="deleteProductInCart(@item.CartId)">Убрать</a>
+
+                            </div>
+
+                            <div class="row mx-auto mb-2 items counter-wrapper">
+                                <div class="items__control" data-action="minus">-</div>
+                                <div class="items__current" data-counter>@item.Quantity</div>
+                                <div class="items__control" data-action="plus">+</div>
+                            </div>
+
+                        </div>
+
+                        <br />
+
+                    }
+
+
                 </div>
             </div>
 
@@ -49,5 +81,32 @@
     </main>
 
 </div>
+<style>
+   
+    .items__control {
+        width: 40px;
+        cursor: pointer;
+        transition: 0.2s ease-in;
+        text-align: center;
+    }
 
+        .items__control:hover {
+            background: #eb5a1e;
+            color: #FFF;
+        }
 
+    .items__current {
+        width: 40px;
+    }
+
+    .items {
+        font-family: 'Merriweather', serif;
+        background: #f2ede7;
+        border-radius: 8px;
+        width: 120px;
+        display: flex;
+        font-size: 18px;
+        height: 30px;
+        overflow: hidden;
+    }
+</style>

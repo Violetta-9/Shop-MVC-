@@ -20,7 +20,8 @@ namespace Shop.Application.Products.Queries.GetProductById
         }
         public  async Task<Product> Handle(GetProductByIdQueries request, CancellationToken cancellationToken)
         {
-             var result=await _db.Products.Include(x=>x.Categories).Include(x=>x.Vendors).SingleOrDefaultAsync(x=>x.Id==request.ProductId);
+            var result = await _db.Products.Include(x => x.Categories).Include(x => x.Vendors)
+                .SingleOrDefaultAsync(x => x.Id == request.ProductId);
              if (result is null)
              {
                 //Todo: исключение которое говорит что данного продукта нет 

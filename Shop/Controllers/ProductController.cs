@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Application.Categories.Queries;
 using Shop.Application.ProductCart.Command;
+using Shop.Application.ProductCart.Command.AddProductInCart;
+using Shop.Application.ProductCart.Command.SubProductInCart;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
 using Shop.Application.Reviews.Queries.GetReviewByProductId;
@@ -95,10 +97,16 @@ namespace Shop.Controllers
 
         }
         [HttpPost]
-        public async Task AddProductInCart(int id)
+        public async Task SubProductInCart(int id, int quentity)
+        {
+            
+            await _mediator.Send(new SubProductInCartCommand(id,quentity));
+        }
+        [HttpPost]
+        public async Task AddProductInCart(int id,int quentity)
         {
             var user = await _manager.GetUserAsync(User);
-            await _mediator.Send(new AddProductInCartCommand(id, user.Id, 1));
+            await _mediator.Send(new AddProductInCartCommand(id, user.Id, quentity));
         }
 
 

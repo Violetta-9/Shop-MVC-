@@ -13,7 +13,7 @@ namespace Shop.Application.Products.Command.DeleteProduct
 {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Unit>
     {
-        private readonly ILogger _logger;
+        
         private readonly ApplicationDbContext _db;
         public DeleteProductCommandHandler(ApplicationDbContext db)
         {

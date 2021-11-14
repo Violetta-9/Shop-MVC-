@@ -81,6 +81,25 @@
                 });
             }
         });
+}
+
+    function deleteProductInCart(productId) {
+        $.ajax({
+            type: "POST",
+            url: "/Cart/Delete",
+            data: {
+                id: productId
+            },
+
+
+            success: function () {
+                window.location.reload();
+
+            },
+            error: function () {
+                document.location.href = "/Identity/Account/Login";
+            }
+        });
     }
 
 

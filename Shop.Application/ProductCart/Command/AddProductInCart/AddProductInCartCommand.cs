@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MediatR;
 
-namespace Shop.Application.ProductCart.Command
+namespace Shop.Application.ProductCart.Command.AddProductInCart
 {
      public class AddProductInCartCommand : IRequest<Unit>
     {
