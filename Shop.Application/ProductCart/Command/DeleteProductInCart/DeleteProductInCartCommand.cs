@@ -7,11 +7,11 @@ namespace Shop.Application.ProductCart.Command.DeleteProductInCart
 {
     public  class DeleteProductInCartCommand:IRequest<Unit>
     {
-        public int ProductId { get; set; }
+        public int CartId { get; set; }
 
-        public DeleteProductInCartCommand(int productId)
+        public DeleteProductInCartCommand(int cartId)
         {
-            ProductId = productId;
+            CartId = cartId;
         }
     }
 }

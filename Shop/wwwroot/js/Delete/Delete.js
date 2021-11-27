@@ -83,12 +83,35 @@
         });
 }
 
-    function deleteProductInCart(productId) {
+function deleteProductInCart(productId, quentity) {
         $.ajax({
             type: "POST",
             url: "/Cart/Delete",
             data: {
                 id: productId
+            },
+
+
+            success: function () {
+               
+                var value = $("#amount").text();
+                value = parseInt(value) - quentity;
+                $("#amount").html(value);
+                localStorage.setItem("CartAmount", value);
+                window.location.reload();
+
+            },
+            error: function () {
+                document.location.href = "/Identity/Account/Login";
+            }
+        });
+    }
+    function deleteProductInLikedCart(cartId) {
+        $.ajax({
+            type: "POST",
+            url: "/Liked/Delete",
+            data: {
+                id: cartId
             },
 
 
@@ -101,7 +124,6 @@
             }
         });
     }
-
 
 
   

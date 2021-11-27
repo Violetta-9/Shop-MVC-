@@ -13,13 +13,23 @@
             var value = $("#amount").text();
             value = parseInt(value) + 1;
             $("#amount").html(value);
-            localStorage.setItem("CartAmount", value);
+                localStorage.setItem("CartAmount", value);
+              
 
         },
         error: function() {
             document.location.href = "/Identity/Account/Login";
         }
     });
+
+}
+
+function SetCartAmount() {
+    var amount = localStorage.getItem("CartAmount");
+    if (amount !== null) {
+
+        $("#amount").html(amount);
+    }
 
 }
 function subProduct(productId) {
@@ -38,6 +48,26 @@ function subProduct(productId) {
             value = parseInt(value) - 1;
             $("#amount").html(value);
             localStorage.setItem("CartAmount", value);
+
+        },
+        error: function () {
+            document.location.href = "/Identity/Account/Login";
+        }
+    });
+
+}
+function addProductInLikedCart(productId) {
+
+    $.ajax({
+        type: "POST",
+        url: "/Liked/AddProductInLikedCart",
+        data: {
+            id: productId
+           
+        },
+
+        success: function () {
+            window.location.reload();
 
         },
         error: function () {

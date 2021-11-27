@@ -9,7 +9,7 @@ namespace Shop.Domain.Models
         public int  Id { get;  private set; }
         public string UserId { get; private set; }
         public int ProductId { get; private set; }
-        public virtual ICollection<Product>Products { get;  private set; }
+        public virtual Product Products { get;  private set; }
         public virtual ShopUser User { get; private set; }
 
         public Liked()

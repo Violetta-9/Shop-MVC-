@@ -18,7 +18,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="liked" href="#">Понравившиеся товары</a>
+                            <a class="nav-link" id="liked" asp-controller="Liked" asp-action="Index">Понравившиеся товары</a>
 
                         </li>
                         <li class="nav-item">
@@ -56,8 +56,8 @@
 
                                 </h4>
 
-                                <a class="far fa-heart mt-1 float-left heard"></a>
-                                <a class="btn bg-danger mt-1 float-right " onclick="deleteProductInCart(@item.CartId)">Убрать</a>
+                                <a class=" btn far fa-heart mt-1 float-left heard" onclick="likedMethod(@item.ProductId,@item.CartId)"></a>
+                                <a class="btn bg-danger mt-1 float-right " onclick="deleteProductInCart(@item.CartId,@item.Quantity)">Убрать</a>
 
                             </div>
 

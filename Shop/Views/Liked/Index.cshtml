@@ -1,0 +1,66 @@
+﻿@model Shop.Application.ProductCart.Queries.GetUserLikedCart.NewLikedCartViewModel;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <main role="main" class="pb-3">
+        <h2> Действия с товарами</h2>
+        <div>
+            <h4>Выберите из списка</h4>
+            <hr>
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link " id="cart" asp-controller="Cart" asp-action="Index">Корзина с товарами</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="liked" href="#">Понравившиеся товары</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="history" href="#">История покупок</a>
+
+                    </li>
+                </ul>
+            </div>
+       
+
+            <div class=" row col-md-9">
+            <h4 class="col-md-9">Понравившиеся товары</h4>
+            <br />
+
+            @foreach (var item in Model.ProductInLikedCart)
+            {
+
+                <div class="card Products  col-md-4 m-2 " style="width: 18rem;">
+                    <img src="/images/Products/@item.Image" class="card-img-top" alt="не удалось загрузить фото">
+                    <div class="card-body">
+                        <p hidden class="idProduct">@item.ProductId</p>
+                        <h5 class="card-title">@item.Name</h5>
+                        <h4 class="card-text ">
+                            <span class="price">@item.Price</span>
+                            <span>&#x20bd</span>
+
+                        </h4>
+
+
+                    <a class="btn mb-3 bg-danger mt-1 float-right " onclick="deleteProductInLikedCart(@item.LikedId)">Убрать</a>
+                       
+
+                        <a class="btn bg-primary" onclick="addInCartAndDeletFromLikedCart(@item.ProductId,@item.LikedId)">Поместить в корзину</a>
+                    </div>
+
+
+
+                </div>
+            }
+            </div>
+        </div>
+        </div>
+
+    </main>
+</div>
+

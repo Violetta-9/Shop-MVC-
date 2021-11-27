@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
 
-namespace Shop.Application.ProductCart.Command.DeleteProductInCart
+namespace Shop.Application.ProductCart.Command.DeleteProductInLikedCart
 {
-    public class DeleteProductInCartCommandHandler : IRequestHandler<DeleteProductInCartCommand, Unit>
+   public  class DeleteProductInLickedCartCommandHandler : IRequestHandler<DeleteProductInLikedCartCommand, Unit>
     {
         private readonly ApplicationDbContext _db;
-        public DeleteProductInCartCommandHandler(ApplicationDbContext db)
+
+        public DeleteProductInLickedCartCommandHandler(ApplicationDbContext db)
         {
             _db = db;
-
         }
-        public async Task<Unit> Handle(DeleteProductInCartCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteProductInLikedCartCommand request, CancellationToken cancellationToken)
         {
-            var result = await _db.Carts.FindAsync(request.CartId);
+            var result = await _db.Likeds.FindAsync(request.CartId);
             if (result is null)
             {
                 //todo:исключение 
