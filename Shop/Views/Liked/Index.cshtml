@@ -21,7 +21,7 @@
 
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="history" href="#">История покупок</a>
+                        <a class="nav-link" id="history" asp-action="GetOrder" asp-controller="Order">История покупок</a>
 
                     </li>
                 </ul>
@@ -31,6 +31,7 @@
             <div class=" row col-md-9">
             <h4 class="col-md-9">Понравившиеся товары</h4>
             <br />
+            @if(@Model.ProductInLikedCart.Length>0){
 
             @foreach (var item in Model.ProductInLikedCart)
             {
@@ -56,6 +57,14 @@
 
 
                 </div>
+            }
+            }
+            else
+            {
+                <h1 class="h3 col-9 text-center"> Нет понравившихся товаров </h1>
+                       
+                <p class=" col-9 text-center">Смотреть товары для добавления в понравившиеся в каталоге <a asp-controller="Product" asp-action="Index"> здесь</a></p>
+
             }
             </div>
         </div>

@@ -22,7 +22,7 @@
 
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="history" href="#">История покупок</a>
+                            <a class="nav-link" id="history" asp-action="GetOrder" asp-controller="Order">История покупок</a>
 
                         </li>
                     </ul>
@@ -30,13 +30,14 @@
 
                 <div class=" row col-md-9">
                     <h4 class="col-md-9">Корзина с товарами</h4>
+                    @if(@Model.Products.Length>0){
                     <h5 class="col-md-9">
                         <span>Стоимость товаров:</span>
                         <span class="totalPrice"> @Model.FullPriece</span>
                         <span>&#x20bd</span>
                     </h5>
                     <div class="col-md-9">
-                        <a class="  btn bg-info">Оформить</a>
+                        <a  asp-controller="Order" asp-action="MakeOrder" class="btn bg-info"  onclick="ClearProductInCart()">Оформить</a>
                     </div>
                     
 
@@ -71,6 +72,14 @@
 
                         <br />
 
+                    }
+                    }
+                    else
+                    {
+                        <h1 class="h3 col-9 text-center"> Ваша корзина пуста</h1>
+                       
+                        <p class=" col-9 text-center">Смотреть товары для добавления в корзину <a asp-controller="Product" asp-action="Index"> здесь</a></p>
+                    
                     }
 
 

@@ -1,0 +1,76 @@
+﻿@model Shop.Application.ProductCart.Queries.GetOrder.OrderViewModel;
+@{
+    ViewData["Title"] = "История покупок";
+}
+<div class="container">
+    <main role="main" class="pb-3">
+        <h2> Действия с товарами</h2>
+        <div>
+            <h4>Выберите из списка</h4>
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link " id="cart" asp-controller="Cart" asp-action="Index">Корзина с товарами</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " id="liked" href="#">Понравившиеся товары</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="history" href="#">История покупок</a>
+
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class=" row col-md-9">
+                    <h4 class="col-md-9">История покупок</h4>
+                    <br />
+                    @if(@Model.ProductInCart.Length>0){
+                    @foreach (var item in Model.ProductInCart.GroupBy(x=>x.OrderId))
+
+                    {
+                        <table class="table table-sm col-9">
+                            <thead>
+                            <tr>
+                                <th class="table-active">Дата: @item.First().Order.OrderDate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var product in item)
+                            {
+                                <tr class="table-success">
+
+                                    <th scope="row">@product.Products.Name - @product.Products.Price.ToString("C") - @product.Quantity.ToString($"{product.Quantity} кол-во")</th>
+
+                                </tr>
+                            }
+                            <tr class="table-active">
+                                <th class="table-active"> Стоимость: @item.First().Order.Cost.ToString("C")</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                
+
+
+                    }
+                    }else{
+                        <h1 class="h3 col-9 text-center"> Ваша история пуста</h1>
+                       
+                    <p class=" col-9 text-center">Смотреть товары для добавления в корзину <a asp-controller="Product" asp-action="Index"> здесь</a></p>
+                    }
+                </div>
+                
+            </div>
+        </div>
+
+    </main>
+</div>
+
+
+
+

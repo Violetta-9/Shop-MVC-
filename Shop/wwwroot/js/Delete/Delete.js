@@ -95,7 +95,7 @@ function deleteProductInCart(productId, quentity) {
             success: function () {
                
                 var value = $("#amount").text();
-                value = parseInt(value) - quentity;
+                value = parseInt(value)-quentity;
                 $("#amount").html(value);
                 localStorage.setItem("CartAmount", value);
                 window.location.reload();

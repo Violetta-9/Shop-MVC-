@@ -76,3 +76,9 @@ function addProductInLikedCart(productId) {
     });
 
 }
+
+function ClearProductInCart() {
+    $("#amount").html(0);
+    localStorage.setItem("CartAmount",0);
+
+}

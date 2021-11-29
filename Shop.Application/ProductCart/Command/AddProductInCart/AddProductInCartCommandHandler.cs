@@ -23,7 +23,7 @@ namespace Shop.Application.ProductCart.Command.AddProductInCart
         }
         public async Task<Unit> Handle(AddProductInCartCommand request, CancellationToken cancellationToken)
         {
-            var resultFromCart =   _db.Carts.Where(x=>x.ProductId==request.ProductId);
+            var resultFromCart =   _db.Carts.Where(x=>x.ProductId==request.ProductId && x.OrderId==null);
             if (resultFromCart.FirstOrDefault() is null)
             {
                 var result = new Cart(request.ProductId, request.UserId, request.Quantity);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace Shop.Controllers
             _manager = manager;
 
         }
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             var user =  await _manager.GetUserAsync(User);
@@ -30,7 +32,7 @@ namespace Shop.Controllers
             return View(result);
         }
 
-
+        [Authorize]
         public async Task AddProductInLikedCart(int id)
         {
             var user = await _manager.GetUserAsync(User);
@@ -39,7 +41,7 @@ namespace Shop.Controllers
         }
 
 
-
+        [Authorize]
 
         [HttpPost]
 

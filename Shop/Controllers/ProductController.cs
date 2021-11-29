@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -31,6 +32,7 @@ namespace Shop.Controllers
             _manager = manager;
 
         }
+        [Authorize]
         public  async Task<ActionResult> Index()
         {
             var vendor = await  _mediator.Send(new GetVendorQueries());
@@ -46,7 +48,7 @@ namespace Shop.Controllers
 
         }
 
-        // GET: ProductController/Details/5
+        [Authorize]
         public async Task<ActionResult> Details(int productId)
         {
             var product = await _mediator.Send(new GetProductByIdQueries(productId));
@@ -60,8 +62,8 @@ namespace Shop.Controllers
             return View(productAndReview);
         }
 
-        
-     
+
+        [Authorize]
         public async Task<ActionResult> Find(int vendorId,int categoryId,int sort)
         {
             var product = (await _mediator.Send(new GetProductQueries())).Products;
@@ -96,12 +98,14 @@ namespace Shop.Controllers
             return View("Index", common);
 
         }
+        [Authorize]
         [HttpPost]
         public async Task SubProductInCart(int id, int quentity)
         {
             
             await _mediator.Send(new SubProductInCartCommand(id,quentity));
         }
+        [Authorize]
         [HttpPost]
         public async Task AddProductInCart(int id,int quentity)
         {
