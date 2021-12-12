@@ -68,7 +68,7 @@
         <form asp-controller="Review" asp-action="AddRating">
             <div class="form-group">
 
-                <div class="rating">
+                <div class="rating" for="ratingValue">
                     <p class="col-1 mt-4">Оценка</p>
                     <span class="rating-item" data-rate="1"></span>
                     <span class="rating-item" data-rate="2"></span>
@@ -76,6 +76,7 @@
                     <span class="rating-item" data-rate="4"></span>
                     <span class="rating-item" data-rate="5"></span>
                 </div>
+                <input type="hidden" id="ratingValue" name="rating" value="" />
                 <textarea required="" placeholder="Ваш отзыв..." class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
                 <input type="hidden" name="productId" value="@Model.Product.Id" />
             </div>
