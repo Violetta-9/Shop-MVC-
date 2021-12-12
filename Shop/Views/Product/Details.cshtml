@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Identity.UI.V3.Pages.Internal
+@using Microsoft.AspNetCore.Identity
+@using Shop.Domain.Models
 @model Shop.ViewModels.ProductAndReviewViewModel;
+@inject SignInManager<ShopUser> _manager
 @{
     ViewData["Title"] = "Details";
 }
@@ -20,29 +23,29 @@
     <div class="col-md-8">
         <table class="table">
             <tbody>
-                <tr>
-                    <th scope="row">Название</th>
-                    <td>@Model.Product.Name</td>
-                </tr>
-                <tr>
-                    <th scope="row">Описание</th>
-                    <td>@Model.Product.Description</td>
-                </tr>
-                <tr>
-                    <th scope="row">Категория</th>
-                    <td>@Model.Product.Categories.Name</td>
+            <tr>
+                <th scope="row">Название</th>
+                <td>@Model.Product.Name</td>
+            </tr>
+            <tr>
+                <th scope="row">Описание</th>
+                <td>@Model.Product.Description</td>
+            </tr>
+            <tr>
+                <th scope="row">Категория</th>
+                <td>@Model.Product.Categories.Name</td>
 
-                </tr>
-                <tr>
-                    <th scope="row">Поставщик</th>
-                    <td>@Model.Product.Vendors.Name</td>
+            </tr>
+            <tr>
+                <th scope="row">Поставщик</th>
+                <td>@Model.Product.Vendors.Name</td>
 
-                </tr>
-                <tr>
-                    <th scope="row">Цена</th>
-                    <td>@Model.Product.Price.ToString("C")</td>
+            </tr>
+            <tr>
+                <th scope="row">Цена</th>
+                <td>@Model.Product.Price.ToString("C")</td>
 
-                </tr>
+            </tr>
             </tbody>
         </table>
 
@@ -55,6 +58,38 @@
     </div>
 
 </div>
+
+@if (_manager.IsSignedIn(User))
+{
+    <div class="jumbotron mt-5">
+        <h1 class="display-4 mb-6">оставьте свой отзыв о данном товаре</h1>
+        <p class="lead">Ваш отзыв важен для нас.</p>
+        <hr class="my-4">
+        <form asp-controller="Review" asp-action="AddRating">
+            <div class="form-group">
+
+                <div class="rating">
+                    <p class="col-1 mt-4">Оценка</p>
+                    <span class="rating-item" data-rate="1"></span>
+                    <span class="rating-item" data-rate="2"></span>
+                    <span class="rating-item" data-rate="3"></span>
+                    <span class="rating-item" data-rate="4"></span>
+                    <span class="rating-item" data-rate="5"></span>
+                </div>
+                <textarea required="" placeholder="Ваш отзыв..." class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <input type="hidden" name="productId" value="@Model.Product.Id" />
+            </div>
+            <button type="submit" class="btn ">Отправить</button>
+        </form>
+        
+    </div>
+
+
+}
+else
+{
+
+}
 <div id="accordion">
     <button class="btn bg-success" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
         Отзывы
@@ -67,4 +102,3 @@
     </div>
 
 </div>
-<script src="@Url.Content("~/js/check.js")" type="text/javascript"></script>

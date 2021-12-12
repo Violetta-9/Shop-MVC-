@@ -1,0 +1,22 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+.rating {
+    display: flex;
+}
+
+.rating-item {
+    color: grey;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.rating-item::before {
+    content: "★";
+    display: block;
+}
+
+.rating-item.active {
+    color: darkgoldenrod;
+}

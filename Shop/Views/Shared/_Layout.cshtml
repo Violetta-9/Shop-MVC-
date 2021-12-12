@@ -6,32 +6,36 @@
     <title>@ViewData["Title"] - Shop</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
- 
+    <link rel="stylesheet" href="~/css/Rating.css" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr.js">
+    <!--[if lt IE 9]>
+        <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js"></script>
+    <![endif]-->
 </head>
 <body onload="SetCartAmount()">
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3 navcolor">
-        <div class="container">
-            <a class="navbar-brand navbart h3" asp-area="" asp-controller="Home" asp-action="Index">Shop</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                s
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                <partial name="_LoginPartial" />
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Продукты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
-                    </li>
-                </ul>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm  border-bottom box-shadow mb-3 navcolor">
+            <div class="container">
+                <a class="navbar-brand navbart h3" asp-area="" asp-controller="Home" asp-action="Index">Shop</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    s
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">Продукты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
 
 
 
@@ -46,17 +50,21 @@
             &copy; 2021 - Shop - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    
 
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/LikedMethod.js"></script>
-<script src="js/AddInCartAntDeletFromLikedCsrt.js"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+    <script src="~/js/LikedMethod.js"></script>
+<script src="~/js/AddInCartAntDeletFromLikedCsrt.js"></script>
 <script src="~/js/Delete/Delete.js"></script>
 
-<script src="~/js/addProduct.js"></script>
-<script src="~/js/calcCartPrice.js"></script>
+    <script src="~/js/addProduct.js"></script>
+    <script src="~/js/calcCartPrice.js"></script>
 
-
+<script src="~/js/Rating.js"></script>
 
 
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -64,5 +72,6 @@
     <script src="~/js/SliderWith.js"></script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    
 </body>
 </html>

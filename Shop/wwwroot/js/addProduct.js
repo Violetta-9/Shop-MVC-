@@ -82,3 +82,4 @@ function ClearProductInCart() {
     localStorage.setItem("CartAmount",0);
 
 }
+$('.rating_item li:nth-child(n+3)').addClass('nth-child-np3');
