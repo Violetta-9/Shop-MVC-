@@ -4,13 +4,13 @@ using System.Text;
 using MediatR;
 using Shop.Domain.Models;
 
-namespace Shop.Application.Reviews.Queries.GetReviewByProductId
+namespace Shop.Application.Reviews.Queries.GetRatingAndReviewAboutProduct
 {
-     public class GetReviewsByProductIdQueries:IRequest<ReviewViewModel>
+   public class GetRatingAndReviewAboutProductCommand:IRequest<ReviewViewModel>
     {
         public int ProductId { get; set; }
 
-        public GetReviewsByProductIdQueries(int productId)
+        public GetRatingAndReviewAboutProductCommand(int productId)
         {
             ProductId = productId;
         }

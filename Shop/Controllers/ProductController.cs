@@ -14,7 +14,7 @@ using Shop.Application.ProductCart.Command.AddProductInCart;
 using Shop.Application.ProductCart.Command.SubProductInCart;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
-using Shop.Application.Reviews.Queries.GetReviewByProductId;
+using Shop.Application.Reviews.Queries.GetRatingAndReviewAboutProduct;
 using Shop.Application.Vendors.Queries;
 using Shop.DataAccess;
 using Shop.Domain.Models;
@@ -51,10 +51,13 @@ namespace Shop.Controllers
         [Authorize]
         public async Task<ActionResult> Details(int productId)
         {
+            var user = await _manager.GetUserAsync(User);
             var product = await _mediator.Send(new GetProductByIdQueries(productId));
-            var review = await _mediator.Send(new GetReviewsByProductIdQueries(productId));
+            var review = await _mediator.Send(new GetRatingAndReviewAboutProductCommand(productId));
+
             var productAndReview = new ProductAndReviewViewModel()
             {
+                User=user,
                 Review = review,
                 Product = product,
             };

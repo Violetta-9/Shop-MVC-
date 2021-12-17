@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="ProductCart\Queries\GetUserOrder\" />
-    <Folder Include="Reviews\Command\" />
   </ItemGroup>
 
 </Project>

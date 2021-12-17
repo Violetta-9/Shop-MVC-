@@ -20,3 +20,7 @@
 .rating-item.active {
     color: darkgoldenrod;
 }
+.ratinFromDB {
+    content: "★";
+    color: orange;
+}

@@ -52,8 +52,8 @@
 
 
         <a class="bg-success btn" asp-controller="Product" asp-action="Index">Назад</a>
-        <a class="btn bg-primary" onclick="addProduct(@Model.Product.Id)">Поместить в корзину</a>
-        <a class="btn bg-primary" onclick="addProductInLikedCart(@Model.Product.Id)">Понравилось</a>
+        <a class="btn btn-info" onclick="addProduct(@Model.Product.Id)">Поместить в корзину</a>
+        <a class="btn btn-info" onclick="addProductInLikedCart(@Model.Product.Id)">Понравилось</a>
 
     </div>
 
@@ -80,7 +80,7 @@
                 <textarea required="" placeholder="Ваш отзыв..." class="form-control" name="text" id="exampleFormControlTextarea1" rows="3"></textarea>
                 <input type="hidden" name="productId" value="@Model.Product.Id" />
             </div>
-            <button type="submit" class="btn ">Отправить</button>
+            <button type="submit" class="btn bg-success">Отправить</button>
         </form>
         
     </div>
@@ -97,9 +97,28 @@ else
     </button>
 
     <div id="collapseOne" class=" collapse ">
-        fdedvdcx
+        <table class="table table-striped">
+            <tbody>
+            
+                @foreach (var item in Model.Review.Reviews)
+                {<tr>
+    
+                     <td>@Model.User.FirstName @Model.User.LastName</td>
+                     <td>@item.Text</td>
+                     <td>@item.Data</td>
+                     <td>@item.Rating<span class="ratinFromDB">★</span> </td>
 
 
+
+                 </tr>
+                }
+
+                
+            
+            
+            </tbody>
+        </table>
+        
     </div>
 
 </div>

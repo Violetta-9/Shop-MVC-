@@ -2,23 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Application.Reviews.Command;
+using Shop.Application.Reviews.Queries.GetRatingAndReviewAboutProduct;
+using Shop.DataAccess.Migrations;
+using Shop.Domain.Models;
 
 namespace Shop.Controllers
 {
     public class ReviewController : Controller
     {
-        // GET: RatingController
-        public ActionResult AddRating(int productId,string text,int rating)
+        private readonly IMediator _mediator;
+        private readonly UserManager<ShopUser> _manager;
+
+        public ReviewController(IMediator mediator, UserManager<ShopUser> manager)
         {
-            return View();
+            _manager = manager;
+            _mediator = mediator;
+        }
+
+        public async Task<ActionResult> AddRating(int productId, string text, int rating)
+        {
+            var user = _manager.GetUserAsync(User).Result;
+            await _mediator.Send(new AddReviewCommand(productId, text, rating, user.Id));
+            return View("Success");
         }
 
         // GET: RatingController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult GetReview(int productId)
         {
-            return View();
+           var result= _mediator.Send(new GetRatingAndReviewAboutProductCommand(productId));
+            return RedirectToAction("Details", "Product",new{productId=productId});
         }
 
         // GET: RatingController/Create
