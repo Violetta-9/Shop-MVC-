@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using MediatR;
+using Shop.Domain.Models;
 
 namespace Shop.Application.Vendors.Command.EditVendor
 {
-   public class EditVendorCommand:IRequest<Unit>
+   public class EditVendorCommand:IRequest<Vendor>
     {
         public int Id { get; set; }
         public string Name { get; set; }

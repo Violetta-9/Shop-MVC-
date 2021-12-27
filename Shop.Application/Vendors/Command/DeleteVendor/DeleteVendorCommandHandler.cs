@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.Vendors.Command.DeleteVendor
 {
@@ -23,7 +25,7 @@ namespace Shop.Application.Vendors.Command.DeleteVendor
             var vendor =  await _db.Vendors.FindAsync(request.Id);
             if (vendor is null)
             {
-                //todo: прописать исключение о том что ничего не найденно
+                throw new NotFoundException(nameof(Vendor), request.Id);
 
             }
             else

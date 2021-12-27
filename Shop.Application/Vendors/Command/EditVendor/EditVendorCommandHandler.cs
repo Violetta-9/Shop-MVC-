@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.Vendors.Command.EditVendor
 {
-    public class EditVendorCommandHandler : IRequestHandler<EditVendorCommand, Unit>
+    public class EditVendorCommandHandler : IRequestHandler<EditVendorCommand, Vendor>
     {
         private readonly ApplicationDbContext _db;
 
@@ -16,12 +18,12 @@ namespace Shop.Application.Vendors.Command.EditVendor
         {
             _db = db;
         }
-        public async Task<Unit> Handle(EditVendorCommand request, CancellationToken cancellationToken)
+        public async Task<Vendor> Handle(EditVendorCommand request, CancellationToken cancellationToken)
         {
             var vendor = await _db.Vendors.FindAsync(request.Id);
             if (vendor is null)
             {
-                //todo: исключение 
+                throw new NotFoundException(nameof(Vendor), request.Id);
 
             }
             else
@@ -31,7 +33,7 @@ namespace Shop.Application.Vendors.Command.EditVendor
 
             }
             await _db.SaveChangesAsync(cancellationToken);
-           return Unit.Value;
+           return vendor;
         }
     }
 }
