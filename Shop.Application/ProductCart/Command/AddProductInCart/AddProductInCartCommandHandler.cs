@@ -13,7 +13,7 @@ using Shop.Domain.Models;
 
 namespace Shop.Application.ProductCart.Command.AddProductInCart
 {
-    public class AddProductInCartCommandHandler : IRequestHandler<AddProductInCartCommand, Unit>
+    public class AddProductInCartCommandHandler : IRequestHandler<AddProductInCartCommand, int>
     {
         private readonly ApplicationDbContext _db;
 
@@ -21,22 +21,26 @@ namespace Shop.Application.ProductCart.Command.AddProductInCart
         {
             _db = db;
         }
-        public async Task<Unit> Handle(AddProductInCartCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddProductInCartCommand request, CancellationToken cancellationToken)
         {
-            var resultFromCart =   _db.Carts.Where(x=>x.ProductId==request.ProductId && x.OrderId==null);
+            var resultFromCart =   _db.Carts.Where(x=>x.ProductId==request.ProductId &&x.UserId==request.UserId && x.OrderId==null);
             if (resultFromCart.FirstOrDefault() is null)
             {
                 var result = new Cart(request.ProductId, request.UserId, request.Quantity);
                 _db.Carts.Add(result);
                 await _db.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return result.Id;
             }
             else
             {
                 resultFromCart.FirstOrDefault().AddQuantity(request.Quantity);
                 await _db.SaveChangesAsync(cancellationToken);
 
-                return Unit.Value;
+                return resultFromCart.FirstOrDefault().Id;
+                ////var quentity = await _mediator.Send(new GetQuantityQueries(request.UserId));
+
+
+                ////return quentity;
             }
         }
     }

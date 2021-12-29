@@ -9,13 +9,12 @@
             },
             
 
-            success: function() {
-            var value = $("#amount").text();
-            value = parseInt(value) + 1;
-            $("#amount").html(value);
-                localStorage.setItem("CartAmount", value);
-              
+            success: function(date) {
+          
+                if (amount !== null) {
 
+                    $("#amount").html(date);
+                }
         },
         error: function() {
             document.location.href = "/Identity/Account/Login";
@@ -25,12 +24,26 @@
 }
 
 function SetCartAmount() {
-    var amount = localStorage.getItem("CartAmount");
-    if (amount !== null) {
+    localStorage.clear();
 
-        $("#amount").html(amount);
-    }
+    $.ajax({
+        type: "POST",
+        url: "/Cart/Quantity",
 
+
+
+        success: function (data) {
+          
+            if (amount !== null) {
+              
+                $("#amount").html(data);
+            }
+
+        },
+        error: function () {
+            document.location.href = "/Identity/Account/Login";
+        }
+    });
 }
 function subProduct(productId) {
 
@@ -43,12 +56,11 @@ function subProduct(productId) {
         },
 
 
-        success: function () {
-            var value = $("#amount").text();
-            value = parseInt(value) - 1;
-            $("#amount").html(value);
-            localStorage.setItem("CartAmount", value);
+        success: function (date) {
+            if (amount !== null) {
 
+                $("#amount").html(date);
+            }
         },
         error: function () {
             document.location.href = "/Identity/Account/Login";
@@ -77,9 +89,4 @@ function addProductInLikedCart(productId) {
 
 }
 
-function ClearProductInCart() {
-    $("#amount").html(0);
-    localStorage.setItem("CartAmount",0);
 
-}
-$('.rating_item li:nth-child(n+3)').addClass('nth-child-np3');

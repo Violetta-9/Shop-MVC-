@@ -92,12 +92,12 @@ function deleteProductInCart(productId, quentity) {
             },
 
 
-            success: function () {
-               
-                var value = $("#amount").text();
-                value = parseInt(value)-quentity;
-                $("#amount").html(value);
-                localStorage.setItem("CartAmount", value);
+            success: function (date) {
+
+                if (amount !== null) {
+
+                    $("#amount").html(date);
+                }
                 window.location.reload();
 
             },

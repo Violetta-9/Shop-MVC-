@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Shop.Application.ProductCart.Command.AddProductInCart
 {
-     public class AddProductInCartCommand : IRequest<Unit>
+     public class AddProductInCartCommand : IRequest<int>
     {
         public int ProductId { get; set; }
         public string UserId { get; set; }

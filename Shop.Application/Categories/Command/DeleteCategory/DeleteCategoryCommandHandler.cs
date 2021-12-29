@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
+
 
 namespace Shop.Application.Categories.Command.DeleteCategory
 {
@@ -16,12 +20,13 @@ namespace Shop.Application.Categories.Command.DeleteCategory
         {
             _db = db;
         }
+       
         public async Task<Unit> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
         {
             var category = await _db.Categories.FindAsync(request.Id);
             if (category is null)
             {
-                //todo: дописать исключение
+                throw new NotFoundException(nameof(Category), request.Id);
             }
             else
             {

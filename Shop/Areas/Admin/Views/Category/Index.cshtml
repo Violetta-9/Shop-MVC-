@@ -19,14 +19,14 @@
 
             <th>@category.Name</th>
             <td>
-                <a class="btn bg-primary" onclick="confirmDeleteCategory(@category.Id)">Удалить</a>
+                <a class="btn bg-danger" onclick="confirmDeleteCategory(@category.Id)">Удалить</a>
 
-                <a class="btn bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-categoryId="@category.Id">Редактировать</a>
+                <a class="btn bg-secondary" asp-area="Admin" asp-controller="Category" asp-action="Edit" asp-route-categoryId="@category.Id">Редактировать</a>
             </td>
         </tr>
     }
 
     </tbody>
 </table>
-<a class="btn bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Create">Добавить</a>
+<a class="btn bg-success" asp-area="Admin" asp-controller="Category" asp-action="Create">Добавить</a>
 

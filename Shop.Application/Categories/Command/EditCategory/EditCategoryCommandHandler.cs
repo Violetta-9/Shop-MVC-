@@ -5,10 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.Categories.Command.EditCategory
 {
-    public class EditCategoryCommandHandler : IRequestHandler<EditCategoryCommand, Unit>
+    public class EditCategoryCommandHandler : IRequestHandler<EditCategoryCommand, Category>
     {
         private readonly ApplicationDbContext _db;
 
@@ -16,12 +18,13 @@ namespace Shop.Application.Categories.Command.EditCategory
         {
             _db = db;
         }
-        public async Task<Unit> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<Category> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
         {
             var category =  await _db.Categories.FindAsync(request.Id);
             if (category is null)
             {
-                //todo: исключение 
+                throw new NotFoundException(nameof(Category), request.Id);
+
             }
             else
             {
@@ -30,7 +33,7 @@ namespace Shop.Application.Categories.Command.EditCategory
             }
 
             await _db.SaveChangesAsync(cancellationToken);
-             return  Unit.Value;
+             return  category;
         }
     }
 }

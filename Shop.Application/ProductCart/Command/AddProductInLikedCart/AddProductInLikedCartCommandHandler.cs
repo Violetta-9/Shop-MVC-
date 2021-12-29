@@ -10,7 +10,7 @@ using Shop.Domain.Models;
 
 namespace Shop.Application.ProductCart.Command.AddProductInLikedCart
 {
-    class AddProductInLikedCartCommandHandler:IRequestHandler<AddProductInLikedCartCommand,Unit>
+    public class AddProductInLikedCartCommandHandler:IRequestHandler<AddProductInLikedCartCommand,int>
     {
         private readonly ApplicationDbContext _db;
 
@@ -19,7 +19,7 @@ namespace Shop.Application.ProductCart.Command.AddProductInLikedCart
             _db = db;
         }
 
-        public async Task<Unit> Handle(AddProductInLikedCartCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddProductInLikedCartCommand request, CancellationToken cancellationToken)
         {
             var resultFromCart = _db.Likeds.Where(x => x.ProductId == request.ProductId);
             if (resultFromCart.FirstOrDefault() is null)
@@ -27,10 +27,10 @@ namespace Shop.Application.ProductCart.Command.AddProductInLikedCart
                 var result = new Liked(request.UserId,request.ProductId);
                 _db.Likeds.Add(result);
                 await _db.SaveChangesAsync(cancellationToken);
-                return Unit.Value;
+                return result.Id;
             }
 
-            return Unit.Value;
+            return resultFromCart.FirstOrDefault().Id;
 
         }
     }

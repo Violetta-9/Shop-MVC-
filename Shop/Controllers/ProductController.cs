@@ -12,12 +12,14 @@ using Shop.Application.Categories.Queries;
 using Shop.Application.ProductCart.Command;
 using Shop.Application.ProductCart.Command.AddProductInCart;
 using Shop.Application.ProductCart.Command.SubProductInCart;
+using Shop.Application.ProductCart.Queries.GetQuantity;
 using Shop.Application.Products.Queries.GetProductById;
 using Shop.Application.Products.Queries.GetProducts;
 using Shop.Application.Reviews.Queries.GetRatingAndReviewAboutProduct;
 using Shop.Application.Vendors.Queries;
 using Shop.DataAccess;
 using Shop.Domain.Models;
+using Shop.Filter1;
 using Shop.ViewModels;
 
 namespace Shop.Controllers
@@ -101,19 +103,25 @@ namespace Shop.Controllers
             return View("Index", common);
 
         }
-        [Authorize]
+        [Filter]
         [HttpPost]
-        public async Task SubProductInCart(int id, int quentity)
+        public async Task<int> SubProductInCart(int id, int quentity)
         {
-            
-            await _mediator.Send(new SubProductInCartCommand(id,quentity));
+            var user = await _manager.GetUserAsync(User);
+            await _mediator.Send(new SubProductInCartCommand(id,quentity,user.Id));
+            var result = await _mediator.Send(new GetQuantityQueries(user.Id));
+
+            return result;
         }
         [Authorize]
         [HttpPost]
-        public async Task AddProductInCart(int id,int quentity)
+        public async Task<int> AddProductInCart(int id,int quentity)
         {
             var user = await _manager.GetUserAsync(User);
             await _mediator.Send(new AddProductInCartCommand(id, user.Id, quentity));
+            var result = await _mediator.Send(new GetQuantityQueries(user.Id));
+
+            return result;
         }
 
 

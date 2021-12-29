@@ -12,7 +12,7 @@ using ILogger = Serilog.ILogger;
 
 namespace Shop.Application.Products.Command.AddProducts
 {
-    class AddProductCommandHandler : IRequestHandler<AddProductCommand, int>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, int>
     {
         private readonly ApplicationDbContext _db;
         private readonly ILogger _logger;

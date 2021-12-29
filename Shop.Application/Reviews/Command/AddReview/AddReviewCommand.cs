@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Shop.Application.Reviews.Command
 {
-    public class AddReviewCommand:IRequest<Unit>
+    public class AddReviewCommand:IRequest<int>
     {
         public int ProductId { get; set; }
         public string Text { get; set; }

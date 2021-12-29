@@ -9,7 +9,7 @@ using Shop.Domain.Models;
 
 namespace Shop.Application.Categories.Command
 {
-    class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, int>
+     public class AddCategoryCommandHandler : IRequestHandler<AddCategoryCommand, int>
     {
         private readonly ApplicationDbContext _db;
         public AddCategoryCommandHandler(ApplicationDbContext db)

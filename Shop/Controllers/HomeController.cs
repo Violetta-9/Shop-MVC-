@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shop.Application.Products.Queries.GetProducts;
 using Shop.DataAccess;
+using Shop.Filter1;
 using Shop.Models;
 
 namespace Shop.Controllers
@@ -24,7 +25,7 @@ namespace Shop.Controllers
             _mediator = mediator;
 
         }
-
+        [Filter]
         public IActionResult Index()
         {
             return View();

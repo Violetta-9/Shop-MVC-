@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Products.Queries.GetProductById
@@ -24,8 +25,8 @@ namespace Shop.Application.Products.Queries.GetProductById
                 .SingleOrDefaultAsync(x => x.Id == request.ProductId);
              if (result is null)
              {
-                //Todo: исключение которое говорит что данного продукта нет 
-             }
+                 throw new NotFoundException(nameof(Product), request.ProductId);
+            }
 
              return result;
 

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Shop.Application.ProductCart.Command.AddProductInLikedCart
 {
-   public  class AddProductInLikedCartCommand:IRequest<Unit>
+   public  class AddProductInLikedCartCommand:IRequest<int>
     {
         public int ProductId { get; set; }
         public string UserId { get; set; }

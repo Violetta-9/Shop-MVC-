@@ -9,5 +9,6 @@ namespace Shop.Application.ProductCart.Queries.GetUserCart
    {
        public ProductInCardViewModel[] Products { get; set; }
        public double FullPriece => Products.Sum(x =>( x.Priece*x.Quantity));
+       public int Quantity => Products.Sum(x => x.Quantity);
    }
 }

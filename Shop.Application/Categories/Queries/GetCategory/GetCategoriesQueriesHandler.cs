@@ -11,7 +11,7 @@ using Shop.Domain.Models;
 
 namespace Shop.Application.Categories.Queries
 {
-    class GetCategoriesQueriesHandler : IRequestHandler<GetCategoriesQueries, CategoriesViewModel>
+   public class GetCategoriesQueriesHandler : IRequestHandler<GetCategoriesQueries, CategoriesViewModel>
     {
         private readonly ApplicationDbContext _db;
 

@@ -6,6 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.DataAccess.Migrations;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.ProductCart.Command.SubProductInCart
 {
@@ -18,11 +21,12 @@ namespace Shop.Application.ProductCart.Command.SubProductInCart
         }
         public async Task<Unit> Handle(SubProductInCartCommand request, CancellationToken cancellationToken)
         {
-            var result = _db.Carts.Where(x => x.ProductId == request.ProductId);
-            if (result is null)
-            {
-                //todo:исключение такого продукта нет в бд
-                return Unit.Value;
+            var result = _db.Carts.Where(x => x.ProductId == request.ProductId && x.UserId == request.UserId && x.OrderId == null);
+            
+                if (result.FirstOrDefault() is null)
+            { 
+                throw new NotFoundException(nameof(Cart), request.ProductId);
+                
             }
             else
             {
@@ -30,6 +34,9 @@ namespace Shop.Application.ProductCart.Command.SubProductInCart
                 await _db.SaveChangesAsync(cancellationToken);
                 return Unit.Value;
             }
+           
+               
+            
 
         }
     }

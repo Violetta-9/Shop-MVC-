@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Products.Command.EditProduct
@@ -23,7 +24,7 @@ namespace Shop.Application.Products.Command.EditProduct
            
             if (product is null)
             {
-                //Todo:вызвать исключение 
+                throw new NotFoundException(nameof(Product), request.ProductId);
             }
 
             product.SetProductName(request.Name);

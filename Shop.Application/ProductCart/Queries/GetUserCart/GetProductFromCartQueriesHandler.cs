@@ -36,7 +36,8 @@ namespace Shop.Application.ProductCart.Queries.GetUserCart
 
             return Task.FromResult(new NewClassForProductInCartViewModel()
             {
-                Products = result.ToArray()
+                Products = result.ToArray(),
+                
             }) ;
         }
     }

@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.ProductCart.Command.DeleteProductInLikedCart
 {
@@ -21,7 +23,7 @@ namespace Shop.Application.ProductCart.Command.DeleteProductInLikedCart
             var result = await _db.Likeds.FindAsync(request.CartId);
             if (result is null)
             {
-                //todo:исключение 
+                throw new NotFoundException(nameof(Liked), request.CartId);
             }
             else
             {

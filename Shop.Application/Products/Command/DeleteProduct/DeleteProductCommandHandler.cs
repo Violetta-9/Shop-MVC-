@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Products.Command.DeleteProduct
@@ -24,7 +25,7 @@ namespace Shop.Application.Products.Command.DeleteProduct
           var result=await _db.Products.FindAsync(request.ProductId);
           if (result is null)
           {
-              //Todo: исключение, которое говорит нам что данного продукта нет в бд
+              throw new NotFoundException(nameof(Product), request.ProductId);
           }
 
            _db.Products.Remove(result);

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Categories.Queries.GetCategoryById
@@ -23,7 +25,7 @@ namespace Shop.Application.Categories.Queries.GetCategoryById
            var category= await _db.Categories.FindAsync(request.Id);
            if (category is null)
            {
-               //todo: исключение
+               throw new NotFoundException(nameof(Category), request.Id);
            }
 
            return category;

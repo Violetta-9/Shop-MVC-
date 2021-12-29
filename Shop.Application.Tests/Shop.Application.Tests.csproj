@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Shop.DataAccess\Shop.DataAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Vendors\Queries\" />
-  </ItemGroup>
-
 </Project>

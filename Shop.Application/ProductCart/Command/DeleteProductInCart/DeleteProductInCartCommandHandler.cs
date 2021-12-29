@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Shop.DataAccess;
+using Shop.Domain.Exseption;
+using Shop.Domain.Models;
 
 namespace Shop.Application.ProductCart.Command.DeleteProductInCart
 {
@@ -22,7 +24,7 @@ namespace Shop.Application.ProductCart.Command.DeleteProductInCart
             var result = await _db.Carts.FindAsync(request.CartId);
             if (result is null)
             {
-                //todo:исключение 
+                throw new NotFoundException(nameof(Cart), request.CartId);
             }
             else
             {
